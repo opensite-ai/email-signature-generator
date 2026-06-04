@@ -12,7 +12,13 @@ interface SignatureFormProps {
   onChange: (data: SignatureData) => void
 }
 
-type SocialField = 'linkedinUrl' | 'twitterUrl' | 'facebookUrl' | 'instagramUrl'
+type SocialField =
+  | 'linkedinUrl'
+  | 'twitterUrl'
+  | 'facebookUrl'
+  | 'instagramUrl'
+  | 'tiktokUrl'
+  | 'githubUrl'
 
 const socialPlatforms: Array<{
   field: SocialField
@@ -38,6 +44,16 @@ const socialPlatforms: Array<{
     field: 'instagramUrl',
     label: 'Instagram',
     placeholder: 'https://instagram.com/username',
+  },
+  {
+    field: 'tiktokUrl',
+    label: 'TikTok',
+    placeholder: 'https://tiktok.com/@username',
+  },
+  {
+    field: 'githubUrl',
+    label: 'GitHub',
+    placeholder: 'https://github.com/username',
   },
 ]
 

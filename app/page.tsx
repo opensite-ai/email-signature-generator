@@ -37,6 +37,8 @@ const defaultData: SignatureData = {
   facebookUrl: "https://facebook.com/username",
   instagramUrl: "https://instagram.com/username",
   twitterUrl: "https://x.com/username",
+  tiktokUrl: "https://tiktok.com/@username",
+  githubUrl: "https://github.com/username",
 };
 
 // Gmail has a ~10,000 character limit for signatures

@@ -1,0 +1,256 @@
+- generic [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - img [ref=e7]
+          - heading "Signature Studio" [level=1] [ref=e10]
+        - paragraph [ref=e11]: Pick a template, brand it, and copy a clean, email-client-safe HTML signature to your clipboard.
+      - generic [ref=e12]:
+        - complementary [ref=e13]:
+          - generic [ref=e14]:
+            - generic [ref=e15]:
+              - generic [ref=e16]:
+                - img [ref=e17]
+                - generic [ref=e20]: 7,529 chars
+              - generic [ref=e21]: 75% of max
+            - paragraph [ref=e22]: / 10,000 limit · 7,529 bytes
+            - paragraph [ref=e25]: Well within email client limits.
+            - button "Copy HTML code" [ref=e27]:
+              - img
+              - text: Copy HTML code
+          - generic [ref=e28]:
+            - heading "How to install" [level=2] [ref=e29]
+            - paragraph [ref=e30]: "Gmail / Workspace: Settings -> General -> Signature -> paste. Apple Mail and Outlook: paste into the signature editor. Images must be hosted at public URLs."
+        - generic [ref=e31]:
+          - region "Signature preview" [ref=e32]:
+            - generic [ref=e37]: Live preview
+            - table [ref=e283]:
+              - rowgroup [ref=e284]:
+                - row "Howard Roark Howard Roark Chief Architect Encapsa AI" [ref=e285]:
+                  - cell "Howard Roark Howard Roark Chief Architect Encapsa AI" [ref=e286]:
+                    - table [ref=e287]:
+                      - rowgroup [ref=e288]:
+                        - row "Howard Roark Howard Roark Chief Architect Encapsa AI" [ref=e289]:
+                          - cell "Howard Roark" [ref=e290]:
+                            - img "Howard Roark" [ref=e291]
+                          - cell "Howard Roark Chief Architect" [ref=e292]:
+                            - generic [ref=e293]: Howard Roark
+                            - generic [ref=e294]: Chief Architect
+                          - cell "Encapsa AI" [ref=e295]:
+                            - img "Encapsa AI" [ref=e296]
+                - row "Encapsa AI Democratizing Enterprise-grade AI" [ref=e297]:
+                  - cell "Encapsa AI Democratizing Enterprise-grade AI" [ref=e298]:
+                    - table [ref=e299]:
+                      - rowgroup [ref=e300]:
+                        - row "Encapsa AI Democratizing Enterprise-grade AI" [ref=e301]:
+                          - cell "Encapsa AI Democratizing Enterprise-grade AI" [ref=e302]:
+                            - text: Encapsa AI
+                            - generic [ref=e303]: Democratizing Enterprise-grade AI
+                - row "howard@roark.ai(555) 555-5555roark.ai" [ref=e304]:
+                  - cell "howard@roark.ai(555) 555-5555roark.ai" [ref=e305]:
+                    - table [ref=e306]:
+                      - rowgroup [ref=e307]:
+                        - row "howard@roark.ai(555) 555-5555roark.ai" [ref=e308]:
+                          - cell "howard@roark.ai(555) 555-5555roark.ai" [ref=e309]:
+                            - link "howard@roark.ai" [ref=e310] [cursor=pointer]:
+                              - /url: mailto:howard@roark.ai
+                            - link "(555) 555-5555" [ref=e311] [cursor=pointer]:
+                              - /url: tel:5555555555
+                            - link "roark.ai" [ref=e312] [cursor=pointer]:
+                              - /url: https://roark.ai
+                          - cell [ref=e313]:
+                            - link [ref=e314] [cursor=pointer]:
+                              - /url: https://linkedin.com/in/username
+                              - img [ref=e315]
+                            - link [ref=e317] [cursor=pointer]:
+                              - /url: https://x.com/username
+                              - img [ref=e318]
+                            - link [ref=e320] [cursor=pointer]:
+                              - /url: https://facebook.com/username
+                              - img [ref=e321]
+                            - link [ref=e323] [cursor=pointer]:
+                              - /url: https://instagram.com/username
+                              - img [ref=e324]
+                            - link [ref=e326] [cursor=pointer]:
+                              - /url: https://tiktok.com/@username
+                              - img [ref=e327]
+                            - link [ref=e329] [cursor=pointer]:
+                              - /url: https://github.com/username
+                              - img [ref=e330]
+          - generic [ref=e106]:
+            - heading "Template" [level=2] [ref=e107]
+            - generic [ref=e108]:
+              - button "Classic Logo header" [ref=e109]:
+                - generic [ref=e110]: Classic
+                - generic [ref=e111]: Logo header
+              - button "Modern Side rail" [ref=e112]:
+                - generic [ref=e113]: Modern
+                - generic [ref=e114]: Side rail
+              - button "Minimal Centered stack" [ref=e115]:
+                - generic [ref=e116]: Minimal
+                - generic [ref=e117]: Centered stack
+              - button "Bold Hero band" [active] [pressed] [ref=e118]:
+                - generic [ref=e119]: Bold
+                - generic [ref=e120]: Hero band
+              - button "Elegant Editorial" [ref=e121]:
+                - generic [ref=e122]: Elegant
+                - generic [ref=e123]: Editorial
+              - button "Compact Two column" [ref=e124]:
+                - generic [ref=e125]: Compact
+                - generic [ref=e126]: Two column
+            - paragraph [ref=e127]: Select the layout first, then tune the signature content below.
+          - generic [ref=e128]:
+            - generic [ref=e129]:
+              - heading "Identity" [level=2] [ref=e130]
+              - generic [ref=e131]:
+                - generic [ref=e132]:
+                  - generic [ref=e133]: Full name
+                  - textbox "Full name" [ref=e134]:
+                    - /placeholder: Jordan Hudgens
+                    - text: Howard Roark
+                - generic [ref=e135]:
+                  - generic [ref=e136]:
+                    - generic [ref=e137]: Job title
+                    - textbox "Job title" [ref=e138]:
+                      - /placeholder: CTO
+                      - text: Chief Architect
+                  - generic [ref=e139]:
+                    - generic [ref=e140]: Company
+                    - textbox "Company" [ref=e141]:
+                      - /placeholder: Encapsa AI
+                      - text: Encapsa AI
+                - generic [ref=e142]:
+                  - generic [ref=e143]: Tagline
+                  - textbox "Tagline" [ref=e144]:
+                    - /placeholder: Democratizing Enterprise-grade AI
+                    - text: Democratizing Enterprise-grade AI
+                  - paragraph [ref=e145]: Optional. Shown on selected templates.
+            - generic [ref=e146]:
+              - heading "Imagery" [level=2] [ref=e147]
+              - generic [ref=e148]:
+                - generic [ref=e149]:
+                  - generic [ref=e150]: Logo URL
+                  - textbox "Logo URL" [ref=e151]:
+                    - /placeholder: https://cdn.example.com/logo.png
+                    - text: https://cdn.ing/assets/i/r/310039/yrgur9wrjxnxi94v6vugw9jdm9o8/logo-primary.png
+                  - paragraph [ref=e152]: Hosted image URL. Recommended width is 210px.
+                - generic [ref=e153]:
+                  - generic [ref=e154]: Avatar URL
+                  - textbox "Avatar URL" [ref=e155]:
+                    - /placeholder: https://cdn.example.com/avatar.jpg
+                    - text: https://cdn.ing/assets/i/r/310037/s24yovwiz6h0ycyllztb7nvwlsv3/thumb.jpg
+                  - paragraph [ref=e156]: Square image works best for rounded crops.
+            - generic [ref=e157]:
+              - heading "Contact" [level=2] [ref=e158]
+              - generic [ref=e159]:
+                - generic [ref=e160]:
+                  - generic [ref=e161]: Email
+                  - textbox "Email" [ref=e162]:
+                    - /placeholder: jordan@encapsa.ai
+                    - text: howard@roark.ai
+                - generic [ref=e163]:
+                  - generic [ref=e164]: Phone
+                  - textbox "Phone" [ref=e165]:
+                    - /placeholder: (432) 238-6131
+                    - text: (555) 555-5555
+                - generic [ref=e166]:
+                  - generic [ref=e167]:
+                    - generic [ref=e168]: Website label
+                    - textbox "Website label" [ref=e169]:
+                      - /placeholder: encapsa.ai
+                      - text: roark.ai
+                  - generic [ref=e170]:
+                    - generic [ref=e171]: Website URL
+                    - textbox "Website URL" [ref=e172]:
+                      - /placeholder: https://encapsa.ai
+                      - text: https://roark.ai
+            - generic [ref=e173]:
+              - heading "Brand colors" [level=2] [ref=e174]
+              - generic [ref=e176]:
+                - generic [ref=e177]:
+                  - generic [ref=e178]: Primary
+                  - generic [ref=e179]:
+                    - textbox "Primary color picker" [ref=e180] [cursor=pointer]: "#0a0a0a"
+                    - textbox "Primary" [ref=e181]:
+                      - /placeholder: "#0a0a0a"
+                      - text: "#0a0a0a"
+                - generic [ref=e182]:
+                  - generic [ref=e183]: Accent
+                  - generic [ref=e184]:
+                    - textbox "Accent color picker" [ref=e185] [cursor=pointer]: "#f59e0b"
+                    - textbox "Accent" [ref=e186]:
+                      - /placeholder: "#0a0a0a"
+                      - text: "#f59e0b"
+            - generic [ref=e187]:
+              - heading "Social links" [level=2] [ref=e188]
+              - generic [ref=e190]:
+                - generic [ref=e191]:
+                  - combobox [ref=e192]:
+                    - option "LinkedIn" [selected]
+                    - option "X" [disabled]
+                    - option "Facebook" [disabled]
+                    - option "Instagram" [disabled]
+                    - option "TikTok" [disabled]
+                    - option "GitHub" [disabled]
+                  - textbox "https://linkedin.com/in/username" [ref=e193]
+                  - button "Remove LinkedIn" [ref=e194]:
+                    - img
+                - generic [ref=e195]:
+                  - combobox [ref=e196]:
+                    - option "LinkedIn" [disabled]
+                    - option "X" [selected]
+                    - option "Facebook" [disabled]
+                    - option "Instagram" [disabled]
+                    - option "TikTok" [disabled]
+                    - option "GitHub" [disabled]
+                  - textbox "https://x.com/username" [ref=e197]
+                  - button "Remove X" [ref=e198]:
+                    - img
+                - generic [ref=e199]:
+                  - combobox [ref=e200]:
+                    - option "LinkedIn" [disabled]
+                    - option "X" [disabled]
+                    - option "Facebook" [selected]
+                    - option "Instagram" [disabled]
+                    - option "TikTok" [disabled]
+                    - option "GitHub" [disabled]
+                  - textbox "https://facebook.com/page" [ref=e201]: https://facebook.com/username
+                  - button "Remove Facebook" [ref=e202]:
+                    - img
+                - generic [ref=e203]:
+                  - combobox [ref=e204]:
+                    - option "LinkedIn" [disabled]
+                    - option "X" [disabled]
+                    - option "Facebook" [disabled]
+                    - option "Instagram" [selected]
+                    - option "TikTok" [disabled]
+                    - option "GitHub" [disabled]
+                  - textbox "https://instagram.com/username" [ref=e205]
+                  - button "Remove Instagram" [ref=e206]:
+                    - img
+                - generic [ref=e207]:
+                  - combobox [ref=e208]:
+                    - option "LinkedIn" [disabled]
+                    - option "X" [disabled]
+                    - option "Facebook" [disabled]
+                    - option "Instagram" [disabled]
+                    - option "TikTok" [selected]
+                    - option "GitHub" [disabled]
+                  - textbox "https://tiktok.com/@username" [ref=e209]
+                  - button "Remove TikTok" [ref=e210]:
+                    - img
+                - generic [ref=e211]:
+                  - combobox [ref=e212]:
+                    - option "LinkedIn" [disabled]
+                    - option "X" [disabled]
+                    - option "Facebook" [disabled]
+                    - option "Instagram" [disabled]
+                    - option "TikTok" [disabled]
+                    - option "GitHub" [selected]
+                  - textbox "https://github.com/username" [ref=e213]
+                  - button "Remove GitHub" [ref=e214]:
+                    - img
+  - button "Open Next.js Dev Tools" [ref=e220] [cursor=pointer]:
+    - img [ref=e221]
+  - alert [ref=e225]
