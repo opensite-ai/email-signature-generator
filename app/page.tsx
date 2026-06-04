@@ -24,24 +24,23 @@ import {
 } from "lucide-react";
 
 const defaultData: SignatureData = {
-  fullName: "Jordan Hudgens",
-  jobTitle: "CTO",
+  fullName: "Howard Roark",
+  jobTitle: "Architect",
   company: "Encapsa AI",
   tagline: "Democratizing Enterprise-grade AI",
-  email: "jordan@encapsa.ai",
-  phone: "(432) 238-6131",
-  websiteUrl: "https://encapsa.ai",
-  websiteName: "encapsa.ai",
+  email: "howard@roark.ai",
+  phone: "(555) 555-5555",
+  websiteUrl: "https://roark.ai",
+  websiteName: "roark.ai",
   logoUrl:
     "https://cdn.ing/assets/i/r/310025/gvrzxz5i1ynmf3e8ijnodl4sxs1i/navy-and-orange-abstract-icon-with-bold-wordmark.png",
   avatarUrl:
     "https://cdn.ing/assets/i/r/310037/s24yovwiz6h0ycyllztb7nvwlsv3/thumb.jpg",
   primaryColor: "#303041",
   secondaryColor: "#db8f48",
-  linkedinUrl: "https://linkedin.com/in/jordanhudgens",
-  twitterUrl: "https://x.com/jordanhudgens",
-  facebookUrl: "https://facebook.com/jordanhudgens",
-  instagramUrl: "https://instagram.com/jordanhudgens",
+  linkedinUrl: "https://linkedin.com/in/username",
+  facebookUrl: "https://facebook.com/username",
+  instagramUrl: "https://instagram.com/username",
 };
 
 // Gmail has a ~10,000 character limit for signatures
