@@ -2,39 +2,56 @@
 
 import { cn } from '@/lib/utils'
 import { templates, type TemplateId } from '@/lib/email-templates'
-import { Check } from 'lucide-react'
 
 interface TemplateSelectorProps {
   selectedTemplate: TemplateId
   onSelect: (templateId: TemplateId) => void
 }
 
+const templateShortLabels: Record<TemplateId, string> = {
+  classic: 'Logo header',
+  modern: 'Side rail',
+  minimal: 'Centered stack',
+  bold: 'Hero band',
+  elegant: 'Editorial',
+  compact: 'Two column',
+}
+
 export function TemplateSelector({ selectedTemplate, onSelect }: TemplateSelectorProps) {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-      {templates.map((template) => (
-        <button
-          key={template.id}
-          onClick={() => onSelect(template.id)}
-          className={cn(
-            'relative p-4 rounded-lg border-2 transition-all text-left',
-            'hover:border-primary/50 hover:bg-secondary/50',
-            selectedTemplate === template.id
-              ? 'border-primary bg-primary/10'
-              : 'border-border bg-card'
-          )}
-        >
-          {selectedTemplate === template.id && (
-            <div className="absolute top-2 right-2 w-5 h-5 bg-primary rounded-full flex items-center justify-center">
-              <Check className="w-3 h-3 text-primary-foreground" />
-            </div>
-          )}
-          <div className="space-y-1">
-            <h4 className="font-semibold text-sm text-foreground">{template.name}</h4>
-            <p className="text-xs text-muted-foreground leading-relaxed">{template.description}</p>
-          </div>
-        </button>
-      ))}
+    <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+      {templates.map((template) => {
+        const isSelected = selectedTemplate === template.id
+
+        return (
+          <button
+            key={template.id}
+            type="button"
+            onClick={() => onSelect(template.id)}
+            aria-pressed={isSelected}
+            className={cn(
+              'min-h-20 rounded-lg border p-3 text-left transition-colors',
+              isSelected
+                ? 'border-primary bg-primary text-primary-foreground shadow-sm'
+                : 'border-border bg-card text-foreground hover:border-ring hover:bg-muted'
+            )}
+          >
+            <span className="block text-sm font-semibold leading-tight">
+              {template.name}
+            </span>
+            <span
+              className={cn(
+                'mt-1 block text-xs leading-snug',
+                isSelected
+                  ? 'text-primary-foreground/75'
+                  : 'text-muted-foreground'
+              )}
+            >
+              {templateShortLabels[template.id]}
+            </span>
+          </button>
+        )
+      })}
     </div>
   )
 }

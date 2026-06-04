@@ -1,10 +1,23 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata } from 'next'
+import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 
+const geistSans = Geist({
+  subsets: ['latin'],
+  variable: '--font-geist-sans',
+  display: 'swap',
+})
+
+const geistMono = Geist_Mono({
+  subsets: ['latin'],
+  variable: '--font-geist-mono',
+  display: 'swap',
+})
+
 export const metadata: Metadata = {
-  title: 'Email Signature Generator',
-  description: 'Create professional HTML email signatures that work with Gmail, Outlook, and other email clients.',
+  title: 'Signature Studio',
+  description: 'Pick a template, brand it, and copy a clean, email-client-safe HTML signature to your clipboard.',
   generator: 'v0.app',
   icons: {
     icon: [
@@ -31,7 +44,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="bg-background">
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} bg-background`}
+    >
       <body className="font-sans antialiased">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}

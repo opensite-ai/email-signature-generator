@@ -1,9 +1,7 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SignatureForm } from "@/components/signature-form";
 import { TemplateSelector } from "@/components/template-selector";
 import {
@@ -12,20 +10,17 @@ import {
 } from "@/components/signature-preview";
 import type { SignatureData, TemplateId } from "@/lib/email-templates";
 import {
-  Copy,
-  Check,
-  Mail,
-  Palette,
-  Settings,
-  Eye,
-  Code,
   AlertCircle,
+  Check,
   CheckCircle2,
+  Code,
+  Copy,
+  Mail,
 } from "lucide-react";
 
 const defaultData: SignatureData = {
   fullName: "Howard Roark",
-  jobTitle: "Architect",
+  jobTitle: "Chief Architect",
   company: "Encapsa AI",
   tagline: "Democratizing Enterprise-grade AI",
   email: "howard@roark.ai",
@@ -33,223 +28,214 @@ const defaultData: SignatureData = {
   websiteUrl: "https://roark.ai",
   websiteName: "roark.ai",
   logoUrl:
-    "https://cdn.ing/assets/i/r/310025/gvrzxz5i1ynmf3e8ijnodl4sxs1i/navy-and-orange-abstract-icon-with-bold-wordmark.png",
+    "https://cdn.ing/assets/i/r/310039/yrgur9wrjxnxi94v6vugw9jdm9o8/logo-primary.png",
   avatarUrl:
     "https://cdn.ing/assets/i/r/310037/s24yovwiz6h0ycyllztb7nvwlsv3/thumb.jpg",
-  primaryColor: "#303041",
-  secondaryColor: "#db8f48",
+  primaryColor: "#0a0a0a",
+  secondaryColor: "#f59e0b",
   linkedinUrl: "https://linkedin.com/in/username",
   facebookUrl: "https://facebook.com/username",
   instagramUrl: "https://instagram.com/username",
+  twitterUrl: "https://x.com/username",
 };
 
 // Gmail has a ~10,000 character limit for signatures
 const GMAIL_CHAR_LIMIT = 10000;
 
+function getPlainTextSignature(data: SignatureData) {
+  return [
+    data.fullName,
+    [data.jobTitle, data.company].filter(Boolean).join(" · "),
+    data.tagline,
+    data.email,
+    data.phone,
+    data.websiteName || data.websiteUrl,
+  ]
+    .filter(Boolean)
+    .join("\n");
+}
+
+async function copyText(value: string) {
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(value);
+    return;
+  }
+
+  const textarea = document.createElement("textarea");
+  textarea.value = value;
+  textarea.setAttribute("readonly", "");
+  textarea.style.position = "fixed";
+  textarea.style.opacity = "0";
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand("copy");
+  document.body.removeChild(textarea);
+}
+
 export default function Page() {
   const [data, setData] = useState<SignatureData>(defaultData);
   const [selectedTemplate, setSelectedTemplate] =
     useState<TemplateId>("classic");
-  const [copied, setCopied] = useState(false);
-  const [activeTab, setActiveTab] = useState("preview");
+  const [copiedSignature, setCopiedSignature] = useState(false);
+  const [copiedSource, setCopiedSource] = useState(false);
 
-  const { minified, charCount } = useSignatureCode({
+  const { html, minified, charCount } = useSignatureCode({
     templateId: selectedTemplate,
     data,
   });
 
-  const handleCopy = useCallback(async () => {
+  const byteCount = useMemo(() => new Blob([minified]).size, [minified]);
+
+  const handleCopySignature = useCallback(async () => {
     try {
-      await navigator.clipboard.writeText(minified);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      const plainText = getPlainTextSignature(data);
+
+      if (navigator.clipboard?.write && typeof ClipboardItem !== "undefined") {
+        await navigator.clipboard.write([
+          new ClipboardItem({
+            "text/html": new Blob([html], { type: "text/html" }),
+            "text/plain": new Blob([plainText], { type: "text/plain" }),
+          }),
+        ]);
+      } else {
+        await copyText(minified);
+      }
+
+      setCopiedSignature(true);
+      setTimeout(() => setCopiedSignature(false), 2000);
     } catch {
-      // Fallback for older browsers
-      const textarea = document.createElement("textarea");
-      textarea.value = minified;
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand("copy");
-      document.body.removeChild(textarea);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      await copyText(minified);
+      setCopiedSignature(true);
+      setTimeout(() => setCopiedSignature(false), 2000);
     }
+  }, [data, html, minified]);
+
+  const handleCopySource = useCallback(async () => {
+    await copyText(minified);
+    setCopiedSource(true);
+    setTimeout(() => setCopiedSource(false), 2000);
   }, [minified]);
 
   const isWithinLimit = charCount <= GMAIL_CHAR_LIMIT;
   const charPercentage = Math.min((charCount / GMAIL_CHAR_LIMIT) * 100, 100);
+  const limitLabel = isWithinLimit
+    ? "Well within email client limits."
+    : "Reduce signature size before installing.";
 
   return (
-    <main className="min-h-screen bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
-              <Mail className="w-5 h-5 text-primary-foreground" />
+    <main className="min-h-screen bg-background text-foreground">
+      <div className="mx-auto min-h-screen max-w-[1400px] px-4 py-6 sm:px-8">
+        <header className="mb-6 border-b border-border pb-5">
+          <div className="flex items-center gap-2.5">
+            <div className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+              <Mail className="size-4" />
             </div>
-            <h1 className="text-2xl font-bold text-foreground">
-              Email Signature Generator
-            </h1>
+            <h1 className="text-xl font-semibold">Signature Studio</h1>
           </div>
-          <p className="text-muted-foreground">
-            Create professional HTML email signatures that work with Gmail,
-            Outlook, and other email clients.
+          <p className="mt-2 text-sm text-muted-foreground">
+            Pick a template, brand it, and copy a clean, email-client-safe HTML
+            signature to your clipboard.
           </p>
-        </div>
+        </header>
 
-        <div className="grid lg:grid-cols-[400px_1fr] gap-6">
-          {/* Left Column - Form */}
-          <div className="space-y-6">
-            <Card className="p-5 bg-card border-border">
-              <div className="flex items-center gap-2 mb-4">
-                <Palette className="w-4 h-4 text-primary" />
-                <h2 className="font-semibold text-foreground">
-                  Choose Template
-                </h2>
-              </div>
-              <TemplateSelector
-                selectedTemplate={selectedTemplate}
-                onSelect={setSelectedTemplate}
-              />
-            </Card>
-
-            <Card className="p-5 bg-card border-border">
-              <div className="flex items-center gap-2 mb-4">
-                <Settings className="w-4 h-4 text-primary" />
-                <h2 className="font-semibold text-foreground">Customize</h2>
-              </div>
-              <div className="max-h-[500px] overflow-y-auto pr-2">
-                <SignatureForm data={data} onChange={setData} />
-              </div>
-            </Card>
-          </div>
-
-          {/* Right Column - Preview & Code */}
-          <div className="space-y-6">
-            <Card className="p-5 bg-card border-border">
-              <Tabs value={activeTab} onValueChange={setActiveTab}>
-                <div className="flex items-center justify-between mb-4">
-                  <TabsList className="bg-secondary">
-                    <TabsTrigger
-                      value="preview"
-                      className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
-                    >
-                      <Eye className="w-4 h-4 mr-2" />
-                      Preview
-                    </TabsTrigger>
-                    <TabsTrigger
-                      value="code"
-                      className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
-                    >
-                      <Code className="w-4 h-4 mr-2" />
-                      HTML Code
-                    </TabsTrigger>
-                  </TabsList>
-
-                  <Button
-                    onClick={handleCopy}
-                    className="gap-2"
-                    variant={copied ? "outline" : "default"}
-                  >
-                    {copied ? (
-                      <>
-                        <Check className="w-4 h-4" />
-                        Copied!
-                      </>
-                    ) : (
-                      <>
-                        <Copy className="w-4 h-4" />
-                        Copy HTML
-                      </>
-                    )}
-                  </Button>
-                </div>
-
-                <TabsContent value="preview" className="mt-0">
-                  <div className="rounded-lg border border-border bg-muted/30 p-4 overflow-auto">
-                    <SignaturePreview
-                      templateId={selectedTemplate}
-                      data={data}
-                    />
-                  </div>
-                </TabsContent>
-
-                <TabsContent value="code" className="mt-0">
-                  <div className="rounded-lg border border-border bg-secondary/50 overflow-hidden">
-                    <pre className="p-4 text-xs text-muted-foreground overflow-auto max-h-[400px] whitespace-pre-wrap break-all font-mono">
-                      {minified}
-                    </pre>
-                  </div>
-                </TabsContent>
-              </Tabs>
-            </Card>
-
-            {/* Character Count Card */}
-            <Card className="p-5 bg-card border-border">
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-2">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(300px,390px)_minmax(0,1fr)] lg:items-start">
+          <aside className="order-2 space-y-4 lg:order-1">
+            <section className="rounded-lg border border-border bg-card p-4 shadow-sm">
+              <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+                <div className="flex min-w-0 items-center gap-2">
                   {isWithinLimit ? (
-                    <CheckCircle2 className="w-5 h-5 text-primary" />
+                    <CheckCircle2 className="size-4 shrink-0 text-[var(--success)]" />
                   ) : (
-                    <AlertCircle className="w-5 h-5 text-destructive" />
+                    <AlertCircle className="size-4 shrink-0 text-destructive" />
                   )}
-                  <span className="font-medium text-foreground">
-                    {isWithinLimit ? "Gmail Compatible" : "Exceeds Gmail Limit"}
+                  <span className="text-sm font-semibold">
+                    {charCount.toLocaleString()} chars
                   </span>
                 </div>
-                <span className="text-sm text-muted-foreground">
-                  {charCount.toLocaleString()} /{" "}
-                  {GMAIL_CHAR_LIMIT.toLocaleString()} characters
+                <span className="text-xs text-muted-foreground">
+                  {Math.round(charPercentage)}% of max
                 </span>
               </div>
-              <div className="w-full h-2 bg-secondary rounded-full overflow-hidden">
+              <p className="mb-3 text-xs text-muted-foreground">
+                / {GMAIL_CHAR_LIMIT.toLocaleString()} limit ·{" "}
+                {byteCount.toLocaleString()} bytes
+              </p>
+              <div className="h-1.5 w-full overflow-hidden rounded-full bg-secondary">
                 <div
                   className={`h-full transition-all duration-300 ${
-                    isWithinLimit ? "bg-primary" : "bg-destructive"
+                    isWithinLimit ? "bg-[var(--success)]" : "bg-destructive"
                   }`}
                   style={{ width: `${charPercentage}%` }}
                 />
               </div>
-              <p className="mt-3 text-xs text-muted-foreground">
-                {isWithinLimit
-                  ? "Your signature is within the recommended character limit for Gmail and most email clients."
-                  : "Your signature exceeds the Gmail limit. Consider removing some elements or using a more compact template."}
+              <p
+                className={`mt-3 text-xs ${
+                  isWithinLimit ? "text-[var(--success)]" : "text-destructive"
+                }`}
+              >
+                {limitLabel}
               </p>
-            </Card>
 
-            {/* Instructions Card */}
-            <Card className="p-5 bg-card border-border">
-              <h3 className="font-semibold text-foreground mb-3">How to Use</h3>
-              <ol className="space-y-2 text-sm text-muted-foreground">
-                <li className="flex gap-2">
-                  <span className="flex-shrink-0 w-5 h-5 rounded-full bg-primary/20 text-primary text-xs flex items-center justify-center font-medium">
-                    1
-                  </span>
-                  <span>Fill in your details and choose brand colors</span>
-                </li>
-                <li className="flex gap-2">
-                  <span className="flex-shrink-0 w-5 h-5 rounded-full bg-primary/20 text-primary text-xs flex items-center justify-center font-medium">
-                    2
-                  </span>
-                  <span>Select a template that matches your style</span>
-                </li>
-                <li className="flex gap-2">
-                  <span className="flex-shrink-0 w-5 h-5 rounded-full bg-primary/20 text-primary text-xs flex items-center justify-center font-medium">
-                    3
-                  </span>
-                  <span>Click &quot;Copy HTML&quot; to copy the signature</span>
-                </li>
-                <li className="flex gap-2">
-                  <span className="flex-shrink-0 w-5 h-5 rounded-full bg-primary/20 text-primary text-xs flex items-center justify-center font-medium">
-                    4
-                  </span>
-                  <span>
-                    Paste into your email client&apos;s signature settings
-                  </span>
-                </li>
-              </ol>
-            </Card>
+              <div className="mt-4 flex flex-col gap-2">
+                <Button
+                  onClick={handleCopySource}
+                  className="h-10 w-full gap-2"
+                >
+                  {copiedSource ? (
+                    <>
+                      <Check className="size-4" />
+                      Copied HTML code
+                    </>
+                  ) : (
+                    <>
+                      <Code className="size-4" />
+                      Copy HTML code
+                    </>
+                  )}
+                </Button>
+              </div>
+            </section>
+
+            <section className="rounded-lg border border-border bg-card p-4 shadow-sm">
+              <h2 className="text-sm font-semibold">How to install</h2>
+              <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                Gmail / Workspace: Settings -&gt; General -&gt; Signature -&gt;
+                paste. Apple Mail and Outlook: paste into the signature editor.
+                Images must be hosted at public URLs.
+              </p>
+            </section>
+          </aside>
+
+          <div className="order-1 space-y-6 lg:order-2">
+            <section
+              aria-label="Signature preview"
+              className="rounded-lg border border-border bg-card p-4 shadow-sm"
+            >
+              <div className="mb-3 flex items-center gap-2">
+                <span className="size-2 rounded-full bg-[var(--window-red)]" />
+                <span className="size-2 rounded-full bg-[var(--window-yellow)]" />
+                <span className="size-2 rounded-full bg-[var(--window-green)]" />
+                <span className="ml-2 text-xs font-medium text-muted-foreground">
+                  Live preview
+                </span>
+              </div>
+              <SignaturePreview templateId={selectedTemplate} data={data} />
+            </section>
+
+            <section className="space-y-3">
+              <h2 className="text-xs font-semibold uppercase text-muted-foreground">
+                Template
+              </h2>
+              <TemplateSelector
+                selectedTemplate={selectedTemplate}
+                onSelect={setSelectedTemplate}
+              />
+              <p className="text-xs leading-relaxed text-muted-foreground">
+                Select the layout first, then tune the signature content below.
+              </p>
+            </section>
+
+            <SignatureForm data={data} onChange={setData} />
           </div>
         </div>
       </div>

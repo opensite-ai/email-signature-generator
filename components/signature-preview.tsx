@@ -14,9 +14,9 @@ export function SignaturePreview({ templateId, data }: SignaturePreviewProps) {
   }, [templateId, data])
 
   return (
-    <div className="w-full overflow-auto">
+    <div className="w-full overflow-auto rounded-md border border-border bg-[var(--preview-surface)] p-4">
       <div 
-        className="bg-white p-6 rounded-lg min-w-fit"
+        className="min-w-fit"
         dangerouslySetInnerHTML={{ __html: html }}
       />
     </div>
